@@ -217,7 +217,7 @@ public class CAMediaTimingFunctionGraphControl: UIControl {
      Internal enum to identify each control point handle
      */
     enum Handle {
-        case A, B
+        case a, b
     }
     var controlPointHandle: Handle?
 
@@ -230,9 +230,9 @@ public class CAMediaTimingFunctionGraphControl: UIControl {
         }
         let location = touch.location(in: self)
         if distanceBetweenPoints(a: location, b: denormalizedPoint(point: controlPoint1)) < dragRadius {
-            controlPointHandle = .A
+            controlPointHandle = .a
         } else if distanceBetweenPoints(a: location, b: denormalizedPoint(point: controlPoint2)) < dragRadius {
-            controlPointHandle = .B
+            controlPointHandle = .b
         } else {
             controlPointHandle = nil
         }
@@ -251,9 +251,9 @@ public class CAMediaTimingFunctionGraphControl: UIControl {
         let location = touch.location(in: self).capped(frame: gridFrame)
         let normalize = normalizedPoint(point: location)
         switch controlPointHandle {
-        case .A:
+        case .a:
             controlPoint1 = normalize
-        case .B:
+        case .b:
             controlPoint2 = normalize
         }
         dispatchValueChange(timingFunction: timingFunction)
