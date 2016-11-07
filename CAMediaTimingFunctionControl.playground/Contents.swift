@@ -8,14 +8,11 @@
 import UIKit
 import PlaygroundSupport
 
-let width = 800
-let height = 600
+let size = CGSize(width: 800, height: 800)
+let frame = CGRect(origin: CGPoint.zero, size: size)
+let (controlFrame, viewFrame) = frame.divided(atDistance: size.height / 2, from: .maxYEdge)
 
-var x = 0
-var y = 0
-var size = height / 2
-
-let view = UIView(frame: CGRect(x: 0, y: 0, width: 800, height: 600))
+let view = UIView(frame: frame)
 view.backgroundColor = UIColor.white
 
 PlaygroundPage.current.liveView = view
@@ -24,18 +21,16 @@ PlaygroundPage.current.liveView = view
 let timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
 
 // sampleView
-let sampleView = SampleView(frame: CGRect(x: width / 2 - size / 2, y: y, width: size, height: size))
+let sampleView = SampleView(frame: viewFrame.insetBy(dx: size.width / 4, dy: 0))
 view.addSubview(sampleView)
-sampleView.backgroundColor = UIColor.white
-sampleView.animating = true
+// set default timing of the animation
 sampleView.timingFunction = timingFunction
-y += size
 
-// curve controls
-let c = CAMediaTimingFunctionControl(frame: CGRect(x: 0, y: y, width: width, height: size))
-c.timingFunction = timingFunction
-view.addSubview(c)
+// add the CAMediaTimingFunctionControl
+let control = CAMediaTimingFunctionControl(frame: controlFrame)
+control.timingFunction = timingFunction
+view.addSubview(control)
 
-c.onValueDidChange = {
+control.onValueDidChange = {
     sampleView.timingFunction = $0
 }
