@@ -53,5 +53,41 @@ view.addSubview(mediaTimingControl)
 mediaTimingControl.onValueDidChange = {
     sampleView.timingFunction = $0
 }
+```
 
+## Resizer
+
+**Resizer** is included in a `Swift Playground` (Swift 3.0) but classes could be use in any type of project (MacOS, iOS) with no or some minors adaptation.
+
+It allow you to tweak in the size of any view to control how it behave based on this adjustement, cool be usefull when view is dynamically sized based on device orientation, gesture, animation, ...
+
+The animated view need to be copy/paste in the Playground.
+
+The idea is to embed the Playground in your project and then copy/paste any view from your project (hoping that Apple will allow to access view from your project in a future XCode update) in order to live tweak it's size.
+
+### Demo
+![CAMediaTimingFunctionControl Demo](https://raw.githubusercontent.com/huguesbr/talk-build-your-ui-developer-toolbox-in-playground/master/resources/resizer-demo.gif)
+
+
+### Usage
+
+```
+import UIKit
+import PlaygroundSupport
+
+// setup liveView
+let frame = CGRect(origin: .zero, size: CGSize(width: 300, height: 300))
+let view = UIView(frame: frame)
+view.backgroundColor = .lightGray
+PlaygroundPage.current.liveView = view
+
+// add resizer control
+let resizer = Resizer(frame: view.frame)
+view.addSubview(resizer)
+
+// add custom view
+// adding your own view to make it funnier :)
+let sampleView = SampleView()
+sampleView.backgroundColor = UIColor.purple
+resizer.contentView = sampleView
 ```
